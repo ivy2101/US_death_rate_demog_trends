@@ -9,19 +9,24 @@ This project utilizes Bayesian hierarchical modeling to the NCHS Multiple Cause 
 ## 2.Code 
 
 ## 3. Figures
-Sample figures
 
 ## Directory structure
 
 ```md
 ├── 01_data
-│   ├── summary_1970_2022.rds
-│   ├── full_data_female.rds
-│   └── full_data_male.rds
+│   └── summary_1970_2022.rds
 ├── 02_code
-│   ├── EDA.Rmd
-│   ├── INLA_model_script.R
-│   └── INLA_output_plotting.R
+│   ├── 2a_data_exploration
+│   │   └── EDA.Rmd
+│   ├── 2b_model
+│   │   └── INLA_model_script.R
+│   ├── 2c_model_plotting
+│   │   ├── raw_fitted_plotting
+│   │   │   ├── national.Rmd
+│   │   │   ├── age_specific.Rmd
+│   │   │   └── race_specific.Rmd
+│   │   └── smoothed_same_scale
+│   │   │   └── example.R
 ├── 03_figures
 └── README.md
 ```
