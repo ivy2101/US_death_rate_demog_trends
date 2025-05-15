@@ -1,0 +1,46 @@
+---
+title: "eda_fixed"
+output: html_document
+date: "2024-10-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(patchwork)
+library(tidyverse)
+library(dplyr)
+library(gridExtra)
+data <- readRDS("/Users/irisyang/Downloads/summary_1970_2022.rds")
+```
+
+```{r}
+data
+```
+```{r}
+by_state <- data %>% 
+  as.data.frame %>% 
+  group_by(year, state) %>%
+  summarise(
+    year_deaths = sum(deaths, na.rm = TRUE),
+    year_population = sum(population, na.rm = TRUE),
+    yrdeath_rate = year_deaths / year_population)
+  
+head(by_state, 10)
+```
+```{r}
+states <- unique(by_state$state)
+
+state_plots <- lapply(states, function(state) {
+  by_state %>%
+    filter(state == !!state) %>%
+    ggplot(aes(x = year, y = yrdeath_rate, fill = state)) +
+    geom_line(stat = "identity") +
+    labs(title = paste("Mortality Rate in", state),
+         x = "Year",
+         y = "Mortality Rate") +
+    theme_minimal()
+})
+
+state_plots
+```
+
